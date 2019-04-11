@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react'
+import NavBar from './components/NavBar'
+import ProjectList from './components/ProjectList'
+import { Context } from './context'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+function App() {
+  const {state: {user, projects}, dispatch} = useContext(Context)
+
+
+  const projectAction = projectId => {
+    const project = projects[projectId]
+    if (project) {
+      dispatch({
+        type: !project.participants.includes(user) ? 'ADD_PARTICIPANT' : 'REMOVE_PARTICIPANT',
+        project,
+        user
+      })
+    }
   }
-}
 
-export default App;
+  return (
+    <div>
+      <NavBar title="Smart Projects" />
+      <ProjectList projects={Object.values(projects)} onAction={projectAction} />
+    </div>
+
+  )
+}
+export default App
