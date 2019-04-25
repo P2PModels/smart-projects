@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Fab from '@material-ui/core/Fab';
+import { useTranslation } from 'react-i18next';
 
 const styles = theme => ({
   container: {
@@ -29,6 +30,7 @@ const styles = theme => ({
 function DialogSelect({ handleNew, classes }) {
   const [name, setName] = useState("")
   const [open, setOpen] = useState(false)
+  const { t } = useTranslation('ProjectForm')
 
   const handleChange = event => {
     setName(event.target.value);
@@ -57,11 +59,11 @@ function DialogSelect({ handleNew, classes }) {
         open={open}
         onClose={handleClose(false)}
       >
-        <DialogTitle>Add a Project</DialogTitle>
+        <DialogTitle>{t('Add a Project')}</DialogTitle>
         <DialogContent>
           <form className={classes.container} onSubmit={handleClose(true)}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-native-simple">Project Name</InputLabel>
+              <InputLabel htmlFor="age-native-simple">{t('Project Name')}</InputLabel>
               <Input
                 value={name}
                 onChange={handleChange}
@@ -72,10 +74,10 @@ function DialogSelect({ handleNew, classes }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose(false)} color="primary">
-            Cancel
+            {t('Cancel')}
           </Button>
           <Button onClick={handleClose(true)} color="primary">
-            Ok
+            {t('Accept')}
           </Button>
         </DialogActions>
       </Dialog>

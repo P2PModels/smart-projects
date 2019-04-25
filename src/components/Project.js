@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { useTranslation } from 'react-i18next';
 
 const styles = theme => ({
   root: {
@@ -14,9 +15,11 @@ const styles = theme => ({
 
 function Project({ classes, project }) {
 
+  const { t } = useTranslation('Project')
+
   return (
     <Paper className={classes.root}>
-      <p>Project Name: {project.name}</p>
+      <p>{t('Project Name: {{name}}', {name: project.name})}</p>
     </Paper>
   );
 }

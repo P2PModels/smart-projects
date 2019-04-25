@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AddProjectButton from './ProjectForm'
-
+import { useTranslation } from 'react-i18next';
 import { Context } from '../context'
 
 const styles = theme => ({
@@ -25,7 +25,9 @@ const styles = theme => ({
 });
 
 function ProjectList({ projects, onAction, classes }) {
-  let {state, dispatch} = useContext(Context)
+  const {state, dispatch} = useContext(Context)
+  const { t } = useTranslation('ProjectList')
+
   const amIIn = project => project.participants.includes(state.user)
   const handleNewProject = project => dispatch({type: 'ADD_PROJECT', project, user: state.user})
   return (
@@ -33,10 +35,10 @@ function ProjectList({ projects, onAction, classes }) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Project</TableCell>
-            <TableCell>Organizer</TableCell>
-            <TableCell>Participants</TableCell>
-            <TableCell>No nos mires, únete</TableCell>
+            <TableCell>{t('Project')}</TableCell>
+            <TableCell>{t('Organizer')}</TableCell>
+            <TableCell>{t('Participants')}</TableCell>
+            <TableCell>{t('Actions')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,9 +51,9 @@ function ProjectList({ projects, onAction, classes }) {
               <TableCell>{project.participants.join(', ')}</TableCell>
               <TableCell>
               { amIIn(project) ?
-                <Button onClick={() => onAction(project.id)} color="primary">Leave</Button>
+                <Button onClick={() => onAction(project.id)} color="primary">{t('Leave')}</Button>
                 :
-                <Button disabled={!state.user} onClick={() => onAction(project.id)} color="primary">Join</Button>
+                <Button disabled={!state.user} onClick={() => onAction(project.id)} color="primary">{t('Join')}</Button>
               }
               </TableCell>
             </TableRow>

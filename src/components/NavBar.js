@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 //import MenuIcon from '@material-ui/icons/Menu';
 import { Context } from '../context'
+import LanguageSelector from './LanguageSelector'
 
 const styles = {
   root: {
@@ -27,7 +28,7 @@ function randomUser() {
   return users[Math.floor(Math.random()*users.length)]
 }
 
-function ButtonAppBar({ title, classes }) {
+function ButtonAppBar({ children, classes }) {
   let {state, dispatch} = useContext(Context)
   return (
     <div className={classes.root}>
@@ -37,8 +38,9 @@ function ButtonAppBar({ title, classes }) {
 
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            {title}{state.user && ' - ' + state.user}
+            {children}{state.user && ' - ' + state.user}
           </Typography>
+          <LanguageSelector />
           { !state.user ?
             <Button color="inherit" onClick={()=>dispatch({type: 'LOGIN', user: randomUser()})}>Login</Button>
           :
