@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import FormControl from '@material-ui/core/FormControl';
@@ -24,12 +24,11 @@ const styles = theme => ({
 
 function LanguageSelector({ classes }) {
   const { i18n } = useTranslation()
-  const [ language, setLanguage ] = useState(i18n.language)
+  const [ language, setLanguage ] = useState(i18n.languages[0])
 
-  const changeLanguage = lng => {
-    setLanguage(lng)
-    i18n.changeLanguage(lng)
-  }
+  useEffect(() => {
+    i18n.changeLanguage(language)
+  }, [language])
 
   return (
     <form className={classes.root} autoComplete="off">
@@ -40,7 +39,7 @@ function LanguageSelector({ classes }) {
             id: 'lang',
           }}
           value={language}
-          onChange={event => changeLanguage(event.target.value)}
+          onChange={event => setLanguage(event.target.value)}
         >
           <MenuItem value={'en'}>English</MenuItem>
           <MenuItem value={'es'}>Español</MenuItem>
