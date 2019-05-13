@@ -1,68 +1,50 @@
 
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import AddProjectButton from './ProjectForm'
-import { useTranslation } from 'react-i18next';
-import { Context } from '../context'
+import {withRouter} from 'react-router-dom'
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
   },
-  table: {
-    minWidth: 700,
-  },
+  gridList: {
+    height: '100%',
+  }
 });
 
-function ProjectList({ projects, onAction, classes }) {
-  const {state, dispatch} = useContext(Context)
-  const { t } = useTranslation('ProjectList')
+const NewProjectTile = ({ history }) => (
+  <GridListTile onClick={() => history.push(`/project/new`)}>
+    <img src={"https://placeimg.com/640/480/any/new"} alt={"x"} />
+  </GridListTile>
+)
 
-  const amIIn = project => project.participants.includes(state.user)
-  const handleNewProject = project => dispatch({type: 'ADD_PROJECT', project, user: state.user})
+function ProjectList({ projects, showNewProjectTile, classes, history }) {
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>{t('Project')}</TableCell>
-            <TableCell>{t('Organizer')}</TableCell>
-            <TableCell>{t('Participants')}</TableCell>
-            <TableCell>{t('Actions')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {projects.map(project => (
-            <TableRow key={project.id} style={amIIn(project) ? {background:'yellow'}: {}}>
-              <TableCell component="th" scope="row">
-                {project.name}
-              </TableCell>
-              <TableCell>{project.organizer}</TableCell>
-              <TableCell>{project.participants.join(', ')}</TableCell>
-              <TableCell>
-              { amIIn(project) ?
-                <Button onClick={() => onAction(project.id)} color="primary">{t('Leave')}</Button>
-                :
-                <Button disabled={!state.user} onClick={() => onAction(project.id)} color="primary">{t('Join')}</Button>
-              }
-              </TableCell>
-            </TableRow>
+    <div>
+      <Paper className={classes.root}>
+        <GridList cellHeight={360} className={classes.gridList} cols={3}>
+          {projects.map(({id, name, areas = []}) => (
+            <GridListTile key={id} onClick={() => history.push(`/project/${id}`)}>
+              <img src={"https://placeimg.com/640/480/any/"+name} alt={name} />
+              <GridListTileBar
+                title={name}
+                subtitle={<span>{areas.join(', ')}</span>}
+              />
+            </GridListTile>
           ))}
-        </TableBody>
-      </Table>
-      <AddProjectButton handleNew={handleNewProject}/>
-
-    </Paper>
+          {showNewProjectTile && <NewProjectTile history={history} />}
+        </GridList>
+      </Paper>
+    </div>
   );
 }
 
@@ -70,4 +52,4 @@ ProjectList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProjectList);
+export default withRouter(withStyles(styles)(ProjectList));

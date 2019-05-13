@@ -1,30 +1,39 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import NavBar from './components/NavBar'
-import ProjectList from './components/ProjectList'
-import { Context } from './context'
 import { useTranslation } from 'react-i18next';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import Home from './pages/HomePage'
+import Project from './pages/ProjectPage'
+import ProjectForm from './pages/ProjectFormPage'
+import { withStyles } from '@material-ui/core/styles';
+import './App.css'
 
-function App() {
-  const {state: {user, projects}, dispatch} = useContext(Context)
+const styles = theme => ({
+  root: {
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  }
+})
+
+function App({classes}) {
   const { t } = useTranslation('App')
 
-  const projectAction = projectId => {
-    const project = projects[projectId]
-    if (project) {
-      dispatch({
-        type: !project.participants.includes(user) ? 'ADD_PARTICIPANT' : 'REMOVE_PARTICIPANT',
-        project,
-        user
-      })
-    }
-  }
-
   return (
-    <div>
+    <Router>
+      <div className={classes.root}>
       <NavBar>{t('Smart Projects')}</NavBar>
-      <ProjectList projects={Object.values(projects)} onAction={projectAction} />
-    </div>
-
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/project/new" component={ProjectForm} />
+        <Route path="/project/:id" component={Project} />
+        <Route render={() => <Redirect to="/" />}/>
+      </Switch>
+      </div>
+    </Router>
   )
 }
-export default App
+
+export default withStyles(styles)(App)

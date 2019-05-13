@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 //import MenuIcon from '@material-ui/icons/Menu';
 import { Context } from '../context'
 import LanguageSelector from './LanguageSelector'
+import { Link } from "react-router-dom"
 
 const styles = {
   root: {
@@ -38,7 +39,9 @@ function ButtonAppBar({ children, classes }) {
 
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            {children}{state.user && ' - ' + state.user}
+            <Link to="/">
+              {children}{state.user && ' - ' + state.user}
+            </Link>
           </Typography>
           <LanguageSelector />
           { !state.user ?
