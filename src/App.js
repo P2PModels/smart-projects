@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import Home from './pages/HomePage'
 import Project from './pages/ProjectPage'
 import ProjectForm from './pages/ProjectFormPage'
+import Auth from './pages/AuthPage'
 import { withStyles } from '@material-ui/core/styles';
 import './App.css'
 
@@ -27,6 +28,8 @@ function App({classes}) {
       <NavBar>{t('Smart Projects')}</NavBar>
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/login" component={Auth} />
+        <Route path="/register" component={Auth} />
         <Route path="/project/new" component={ProjectForm} />
         <Route path="/project/:id" component={Project} />
         <Route render={() => <Redirect to="/" />}/>

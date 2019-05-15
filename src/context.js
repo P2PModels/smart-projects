@@ -23,19 +23,23 @@ export function createProject(project) {
 
 let initialState = {
   user: null,
+  users: [],
   projects: {
   }
 };
 
 let reducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN":
-      return { ...state, user: action.user};
+    case "LOGIN": {
+      const user = state.users.filter(u => u.email === action.user.email)[0] || null
+      return { ...state, user};
+    }
+    case "REGISTER":
+      return {...state, users: [{...action.user}], user: {...action.user}}
     case "LOGOUT":
       return { ...state, user: null };
     case "ADD_PROJECT": {
       const newState = { ...state, projects: {...state.projects, [nextId]: createProject(action.project)}}
-      console.log(newState)
       return newState
     }
     case "ADD_PARTICIPANT": {
@@ -76,6 +80,7 @@ function populateInitalState() {
     state = populate('Cineforum', 'Jordi', ['culture', 'cinema'])
     state = populate('Karaoke', 'Sem', ['party'])
     state = populate('Cumple de Leo', 'Elena', ['party'])
+    state = reducer(state, {type: 'REGISTER', user: {name: 'Sem', email: 'dallovi90@gmail.com', password: 'xxx'}})
     return state
 }
 
