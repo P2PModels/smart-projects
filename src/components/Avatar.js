@@ -37,8 +37,8 @@ const defaultColors = [
     '#ff4080',
 ];
 
-function getRandomColor(value, colors = defaultColors) {
-    const colorIndex = _stringAsciiPRNG(value, colors.length)
+function getRandomColor(name, colors = defaultColors) {
+    const colorIndex = _stringAsciiPRNG(name, colors.length)
     return colors[colorIndex];
 }
 

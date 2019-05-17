@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
-import { Context } from '../context'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import {withRouter} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { projectActions } from '../actions'
 
 const styles = theme => ({
   header: {
@@ -26,7 +27,8 @@ const styles = theme => ({
 });
 
 function ProjectFormPage({ classes, history }) {
-  const {state: {user}, dispatch} = useContext(Context)
+  const user = useSelector(state => state.authentication.user)
+  const dispatch = useDispatch()
   const { t } = useTranslation('ProjectFormPage')
 
   if (!user) {
@@ -35,12 +37,9 @@ function ProjectFormPage({ classes, history }) {
 
   const handleNewProject = event => {
     event.preventDefault()
-    dispatch({
-      type: 'ADD_PROJECT',
-      project : {
-        name, organizer: user, summary, url, description, needs
-      },
-    })
+    dispatch(projectActions.add({
+        name, organizer: user.id, summary, url, description, needs
+      }))
     history.push('/')
   }
 

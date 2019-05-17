@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
-import { Context } from '../context'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux'
+import {projectActions} from '../actions'
 
 function Profile({title}) {
   return <li>{title}</li>
@@ -29,17 +30,22 @@ const styles = theme => ({
 });
 
 function ProjectPage({ match: { params: { id } }, classes }) {
-  const {state: {user, projects}, dispatch} = useContext(Context)
+  const user = useSelector(state => state.authentication.user)
+  const projects = useSelector(state => state.projects.items)
+  const dispatch = useDispatch()
   const { t } = useTranslation('ProjectPage')
-  const project = projects[id]
-  const { name, summary, url, description, needs, imgs = [], lookingFor = [] } = project
+  const project = projects ? projects[id] : {}
+  const { name, summary, url, description, needs, imgs = [], lookingFor = [], participants=[] } = project
 
+  useEffect(() => {
+    dispatch(projectActions.getAll());
+  }, [])
 
-  const join = () => dispatch({type: 'ADD_PARTICIPANT', project, user})
-  const leave = () => dispatch({type: 'REMOVE_PARTICIPANT', project, user})
+  const join = () => dispatch(projectActions.addParticipant(project, user))
+  const leave = () => dispatch(projectActions.removeParticipant(project, user))
 
   return (
-    <div>
+     <div>
       <header className={classes.header} style={{backgroundImage: `url("${imgs[0]}")`}}>
         <div>
           <h1>{name}</h1>
@@ -62,7 +68,7 @@ function ProjectPage({ match: { params: { id } }, classes }) {
         {lookingFor.map(profile => <Profile title={profile} />)}
       </ul>
       {user ?
-        !project.participants.includes(user) ?
+        !participants.includes(user.id) ?
           <Button variant="contained" color="primary" onClick={join}>{t('Join')}</Button> :
           <Button variant="contained" color="primary" onClick={leave}>{t('Leave')}</Button>
         : null}

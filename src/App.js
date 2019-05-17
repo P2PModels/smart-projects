@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from './components/NavBar'
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import { history } from './helpers'
 import Home from './pages/HomePage'
 import Project from './pages/ProjectPage'
 import ProjectForm from './pages/ProjectFormPage'
@@ -23,7 +24,7 @@ function App({classes}) {
   const { t } = useTranslation('App')
 
   return (
-    <Router>
+    <Router history={history}>
       <div className={classes.root}>
       <NavBar>{t('Smart Projects')}</NavBar>
       <Switch>

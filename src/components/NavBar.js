@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,10 +9,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 //import MenuIcon from '@material-ui/icons/Menu';
-import { Context } from '../context'
 import LanguageSelector from './LanguageSelector'
 import { withRouter, Link } from "react-router-dom"
 import Avatar from './Avatar'
+import {userActions} from '../actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 const styles = {
   root: {
@@ -31,7 +32,8 @@ const styles = {
 };
 
 function ButtonAppBar({ children, classes, history }) {
-  let { state: { user }, dispatch } = useContext(Context)
+  const user = useSelector(state => state.authentication.user)
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   return (
@@ -75,7 +77,7 @@ function ButtonAppBar({ children, classes, history }) {
                 onClose={() => setAnchorEl(null)}
               >
                 <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
-                <MenuItem onClick={() => {setAnchorEl(null); dispatch({type: 'LOGOUT'})}}>Logout</MenuItem>
+                <MenuItem onClick={() => {setAnchorEl(null); dispatch(userActions.logout())}}>Logout</MenuItem>
               </Menu>
             </div>
           }

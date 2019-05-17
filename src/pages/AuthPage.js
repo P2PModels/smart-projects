@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {withRouter} from 'react-router-dom'
-import { Context } from '../context'
+import { userActions } from '../actions';
+import { useSelector, useDispatch } from 'react-redux'
 
 const styles = theme => ({
   main: {
@@ -86,7 +87,8 @@ const Submit = ({ text, classes }) => <Button
 </Button>
 
 function Auth({ classes, history,  match: { path } }) {
-  let {state: { user }, dispatch} = useContext(Context)
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
   if (user) {
     history.push('/')
   }
@@ -100,9 +102,11 @@ function Auth({ classes, history,  match: { path } }) {
   const onSubmit = event => {
     event.preventDefault()
     isLogin?
-      dispatch({type: 'LOGIN', user: {email, password}})
+      dispatch(userActions.login(email, password))
+      //dispatch({type: 'LOGIN', user: {email, password}})
     :
-      dispatch({type: 'REGISTER', user: {name, email, password}})
+      dispatch(userActions.register({name, email, password}))
+      //dispatch({type: 'REGISTER', user: {name, email, password}})
   }
   return (
     <main className={classes.main}>
