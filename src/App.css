@@ -1,3 +1,33 @@
 body {
   margin: 0
 }
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('/fonts/HelveticaNeue-Medium.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('/fonts/HelveticaNeue-Light.otf');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url('/fonts/HelveticaNeue-Bold.otf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/fonts/roboto-v19-latin-regular.woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/fonts/roboto-v19-latin-700.woff2');
+  font-weight: bold;
+}

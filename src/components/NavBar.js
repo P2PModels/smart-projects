@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu'
@@ -21,6 +20,7 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
+    alignSelf: 'flex-start',
   },
   avatar: {
     margin: 10,
@@ -38,20 +38,17 @@ function ButtonAppBar({ children, classes, history }) {
   const open = Boolean(anchorEl)
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="default">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <div className={classes.grow}>
             <Link to="/">
-              {children}{user && ' - ' + user.name}
+              <img style={{position:'absolute', zIndex:1}} src="/images/logo.png" alt="Logo" />
             </Link>
-          </Typography>
+          </div>
           <LanguageSelector />
 
           { !user ?
-            <Button color="inherit" onClick={() => history.push('/login')}>Login</Button>
+            <Button variant="contained" color="primary" onClick={() => history.push('/login')}>Log in</Button>
           :
             <div>
               <IconButton

@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {withRouter} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { projectActions } from '../actions'
+import Layout from '../components/Layout'
 
 const styles = theme => ({
   header: {
@@ -50,26 +51,28 @@ function ProjectFormPage({ classes, history }) {
   const [needs, setNeeds] = useState("")
 
   return (
-    <form onSubmit={handleNewProject}>
-      <header className={classes.header}>
-        <div>
-          <input name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Project Name" />
-          <input name="summary" value={summary} onChange={e => setSummary(e.target.value)} placeholder="What is your project about?" />
+    <Layout>
+      <form onSubmit={handleNewProject}>
+        <header className={classes.header}>
+          <div>
+            <input name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Project Name" />
+            <input name="summary" value={summary} onChange={e => setSummary(e.target.value)} placeholder="What is your project about?" />
+          </div>
+        </header>
+        <div className={classes.imgBlock}>
+          <div>{t('Upload image')}</div>
+          <div>{t('Upload image')}</div>
         </div>
-      </header>
-      <div className={classes.imgBlock}>
-        <div>{t('Upload image')}</div>
-        <div>{t('Upload image')}</div>
-      </div>
-      <input name="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="URL" />
-      <h2>{t('Brief project description')}</h2>
-      <textarea onChange={e => setDescription(e.target.value)} value={description}></textarea>
-      <h2>{t('What do you need?')}</h2>
-      <textarea onChange={e => setNeeds(e.target.value)} value={needs}></textarea>
+        <input name="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="URL" />
+        <h2>{t('Brief project description')}</h2>
+        <textarea onChange={e => setDescription(e.target.value)} value={description}></textarea>
+        <h2>{t('What do you need?')}</h2>
+        <textarea onChange={e => setNeeds(e.target.value)} value={needs}></textarea>
 
-      <h2>{t('What kind of profiles are you looking for')}</h2>
-      <Button onClick={handleNewProject}>Done!</Button>
-    </form>
+        <h2>{t('What kind of profiles are you looking for')}</h2>
+        <Button onClick={handleNewProject}>Done!</Button>
+      </form>
+    </Layout>
   )
 }
 

@@ -1,6 +1,4 @@
 import React from 'react'
-import NavBar from './components/NavBar'
-import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import { history } from './helpers'
 import Home from './pages/HomePage'
@@ -11,22 +9,18 @@ import { withStyles } from '@material-ui/core/styles';
 import './App.css'
 
 const styles = theme => ({
-  root: {
+  /*root: {
     [theme.breakpoints.up('md')]: {
       maxWidth: '80%',
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-  }
+  }*/
 })
 
 function App({classes}) {
-  const { t } = useTranslation('App')
-
   return (
     <Router history={history}>
-      <div className={classes.root}>
-      <NavBar>{t('Smart Projects')}</NavBar>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Auth} />
@@ -35,7 +29,6 @@ function App({classes}) {
         <Route path="/project/:id" component={Project} />
         <Route render={() => <Redirect to="/" />}/>
       </Switch>
-      </div>
     </Router>
   )
 }

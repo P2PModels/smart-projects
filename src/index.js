@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from './helpers';
 import './index.css';
 import './i18n';
+import ThemeProvider from './components/ThemeProvider';
 import App from './App';
 
 // setup fake backend
@@ -12,9 +13,11 @@ configureFakeBackend();
 
 ReactDOM.render(
   <Suspense fallback="loading">
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
   </Suspense>,
   document.getElementById('root')
 );

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux'
 import {projectActions} from '../actions'
+import Layout from '../components/Layout'
 
 function Profile({title}) {
   return <li>{title}</li>
@@ -43,15 +44,9 @@ function ProjectPage({ match: { params: { id } }, classes }) {
 
   const join = () => dispatch(projectActions.addParticipant(project, user))
   const leave = () => dispatch(projectActions.removeParticipant(project, user))
-
+console.log(imgs[0])
   return (
-     <div>
-      <header className={classes.header} style={{backgroundImage: `url("${imgs[0]}")`}}>
-        <div>
-          <h1>{name}</h1>
-          <p>{summary}</p>
-        </div>
-      </header>
+    <Layout title={name} subtitle={summary} background={imgs[0]}>
       <div className={classes.imgBlock}>
         <img src={imgs[1]} alt={t('Project image')} />
         <img src={imgs[2]} alt={t('Project image')} />
@@ -72,7 +67,7 @@ function ProjectPage({ match: { params: { id } }, classes }) {
           <Button variant="contained" color="primary" onClick={join}>{t('Join')}</Button> :
           <Button variant="contained" color="primary" onClick={leave}>{t('Leave')}</Button>
         : null}
-    </div>
+    </Layout>
   )
 }
 
