@@ -44,7 +44,7 @@ function ProjectPage({ match: { params: { id } }, classes }) {
 
   const join = () => dispatch(projectActions.addParticipant(project, user))
   const leave = () => dispatch(projectActions.removeParticipant(project, user))
-console.log(imgs[0])
+
   return (
     <Layout title={name} subtitle={summary} background={imgs[0]}>
       <div className={classes.imgBlock}>
@@ -60,7 +60,7 @@ console.log(imgs[0])
 
       <h2>Ponte en contacto con nosotras si eres</h2>
       <ul>
-        {lookingFor.map(profile => <Profile title={profile} />)}
+        {lookingFor.map(profile => <Profile key={profile} title={profile} />)}
       </ul>
       {user ?
         !participants.includes(user.id) ?

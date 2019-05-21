@@ -22,8 +22,10 @@ function Home() {
     dispatch(projectActions.getAll());
   }, [])
 
+  const header = !user ? 'header-1' : 'header-2'
+
   return (
-    <Layout title={title} subtitle={subtitle} background="/images/header-1.png">
+    <Layout title={title} subtitle={subtitle} background={`/images/${header}.jpg`} overlay={false}>
       {user &&
         <div>
           <h1>{t('Your Projects')}</h1>

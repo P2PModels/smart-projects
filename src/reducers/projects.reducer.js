@@ -18,7 +18,6 @@ export function projects(state = {}, action) {
         loading: true
       };
     case projectConstants.GETALL_SUCCESS:
-    console.log(action.projects)
       return {
         items: action.projects
       };
