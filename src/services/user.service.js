@@ -12,11 +12,11 @@ export const userService = {
 
 const apiUrl = process.env.REACT_APP_API_URL
 
-function login(email, password) {
+function login(usernameOrEmail, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ usernameOrEmail, password })
     };
 
     return fetch(`${apiUrl}/login`, requestOptions)
