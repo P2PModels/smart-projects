@@ -11,11 +11,10 @@ export const userActions = {
     delete: _delete
 };
 
-function login(email, password) {
+function login(usernameOrEmail, password) {
     return dispatch => {
         dispatch(request());
-
-        userService.login(email, password)
+        userService.login(usernameOrEmail, password)
             .then(
                 user => {
                     console.log(user)
