@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { useSelector, useDispatch } from 'react-redux'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
@@ -16,7 +16,7 @@ function Profile({ title }) {
   return <li>{title}</li>
 }
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     '& img': {
       display: 'block',
@@ -31,18 +31,18 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+}))
 
 function ProjectPage({
   match: {
     params: { id },
   },
-  classes,
 }) {
   const user = useSelector(state => state.authentication.user)
   const projects = useSelector(state => state.projects.items)
   const dispatch = useDispatch()
   const { t } = useTranslation('ProjectPage')
+  const classes = useStyles()
   const project = projects ? projects[id] : {}
   const {
     name,
@@ -143,4 +143,4 @@ function ProjectPage({
   )
 }
 
-export default withStyles(styles)(ProjectPage)
+export default ProjectPage

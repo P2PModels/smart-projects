@@ -1,12 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import { withRouter } from 'react-router-dom'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -20,7 +19,7 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
   },
-})
+}))
 
 const NewProjectTile = ({ history, ...props }) => (
   <GridListTile {...props} onClick={() => history.push(`/project/new`)}>
@@ -29,7 +28,8 @@ const NewProjectTile = ({ history, ...props }) => (
   </GridListTile>
 )
 
-function ProjectList({ projects, showNewProjectTile, classes, history }) {
+function ProjectList({ projects, showNewProjectTile, history }) {
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <GridList
@@ -53,8 +53,4 @@ function ProjectList({ projects, showNewProjectTile, classes, history }) {
   )
 }
 
-ProjectList.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withRouter(withStyles(styles)(ProjectList))
+export default withRouter(ProjectList)

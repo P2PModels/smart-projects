@@ -1,12 +1,12 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { withStyles } from '@material-ui/core/styles'
-const styles = {
+import { makeStyles } from '@material-ui/core/styles'
+const useStyles = makeStyles({
   avatar: {
     margin: 10,
     color: '#fff',
   },
-}
+})
 
 // https://en.wikipedia.org/wiki/Linear_congruential_generator
 function _stringAsciiPRNG(value, m) {
@@ -50,14 +50,17 @@ function defaultInitials(name) {
     .join('')
 }
 
-const CustomAvatar = ({ user, classes }) => (
-  <Avatar
-    alt={user.name}
-    style={{ backgroundColor: getRandomColor(user.name) }}
-    className={classes.avatar}
-  >
-    {defaultInitials(user.name)}
-  </Avatar>
-)
+const CustomAvatar = ({ user }) => {
+  const classes = useStyles()
+  return (
+    <Avatar
+      alt={user.name}
+      style={{ backgroundColor: getRandomColor(user.name) }}
+      className={classes.avatar}
+    >
+      {defaultInitials(user.name)}
+    </Avatar>
+  )
+}
 
-export default withStyles(styles)(CustomAvatar)
+export default CustomAvatar

@@ -1,9 +1,9 @@
 import React from 'react'
 
 import TextField from '@material-ui/core/TextField'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
-const styles = {
+const useStyles = makeStyles({
   largerInputRoot: {
     fontSize: '1.8rem',
   },
@@ -16,28 +16,34 @@ const styles = {
   smallerLabelRoot: {
     fontSize: '0.7rem',
   },
+})
+
+export const LargerTextField = ({ ...props }) => {
+  const classes = useStyles()
+  return (
+    <TextField
+      {...props}
+      InputProps={{ classes: { root: classes.largerInputRoot } }}
+      InputLabelProps={{
+        FormLabelClasses: {
+          root: classes.largerLabelRoot,
+        },
+      }}
+    />
+  )
 }
 
-export const LargerTextField = withStyles(styles)(({ ...props }) => (
-  <TextField
-    {...props}
-    InputProps={{ classes: { root: props.classes.largerInputRoot } }}
-    InputLabelProps={{
-      FormLabelClasses: {
-        root: props.classes.largerLabelRoot,
-      },
-    }}
-  />
-))
-
-export const SmallerTextField = withStyles(styles)(({ ...props }) => (
-  <TextField
-    {...props}
-    InputProps={{ classes: { root: props.classes.smallerInputRoot } }}
-    InputLabelProps={{
-      FormLabelClasses: {
-        root: props.classes.smallerLabelRoot,
-      },
-    }}
-  />
-))
+export const SmallerTextField = ({ ...props }) => {
+  const classes = useStyles()
+  return (
+    <TextField
+      {...props}
+      InputProps={{ classes: { root: classes.smallerInputRoot } }}
+      InputLabelProps={{
+        FormLabelClasses: {
+          root: classes.smallerLabelRoot,
+        },
+      }}
+    />
+  )
+}

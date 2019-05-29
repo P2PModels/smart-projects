@@ -5,16 +5,13 @@ import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
 import { LargerTextField, SmallerTextField } from '../components/TextFields'
 
-const styles = {}
-
-function ProjectFormPage({ classes, history }) {
+function ProjectFormPage({ history }) {
   const user = useSelector(state => state.authentication.user)
   const dispatch = useDispatch()
   const { t } = useTranslation('ProjectFormPage')
@@ -45,11 +42,10 @@ function ProjectFormPage({ classes, history }) {
   const [needs, setNeeds] = useState('')
 
   return (
-    <form onSubmit={handleNewProject} className={classes.root}>
+    <form onSubmit={handleNewProject}>
       <Layout
         title={
           <LargerTextField
-            className={classes.larger}
             inputProps
             variant="outlined"
             name="name"
@@ -71,9 +67,8 @@ function ProjectFormPage({ classes, history }) {
         <Container>
           <Typography variant="h2">{name || 'Project Name'}</Typography>
           <Grid container spacing={2}>
-            <Grid item xs className={classes.fields}>
+            <Grid item xs>
               <SmallerTextField
-                className={classes.smaller}
                 variant="outlined"
                 name="url"
                 value={url}
@@ -139,4 +134,4 @@ function ProjectFormPage({ classes, history }) {
   )
 }
 
-export default withRouter(withStyles(styles)(ProjectFormPage))
+export default withRouter(ProjectFormPage)

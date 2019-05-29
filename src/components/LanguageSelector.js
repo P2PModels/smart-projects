@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useTranslation } from 'react-i18next'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -20,11 +20,13 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.common.white, 0.75),
     },
   },
-})
+}))
 
-function LanguageSelector({ classes }) {
+function LanguageSelector() {
   const { i18n } = useTranslation()
   const [language, setLanguage] = useState(i18n.languages[0])
+
+  const classes = useStyles()
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -49,4 +51,4 @@ function LanguageSelector({ classes }) {
   )
 }
 
-export default withStyles(styles)(LanguageSelector)
+export default LanguageSelector

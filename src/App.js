@@ -5,20 +5,9 @@ import Home from './pages/HomePage'
 import Project from './pages/ProjectPage'
 import ProjectForm from './pages/ProjectFormPage'
 import Auth from './pages/AuthPage'
-import { withStyles } from '@material-ui/core/styles'
 import './App.css'
 
-const styles = theme => ({
-  /* root: {
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '80%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  } */
-})
-
-function App({ classes }) {
+function App() {
   return (
     <Router history={history}>
       <Switch>
@@ -33,4 +22,4 @@ function App({ classes }) {
   )
 }
 
-export default withStyles(styles)(App)
+export default App

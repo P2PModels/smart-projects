@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import FormControl from '@material-ui/core/FormControl'
@@ -10,12 +9,12 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
-import withStyles from '@material-ui/core/styles/withStyles'
+import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { userActions } from '../actions'
 import { useSelector, useDispatch } from 'react-redux'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   background: {
     background: '#FF4B63 no-repeat center center fixed',
     backgroundSize: 'cover',
@@ -48,7 +47,7 @@ const styles = theme => ({
   marginTop: {
     marginTop: theme.spacing.unit * 3,
   },
-})
+}))
 
 const login = {
   isLogin: true,
@@ -120,35 +119,43 @@ const Remember = () => (
   />
 )
 
-const Submit = ({ text, classes }) => (
-  <Button
-    type="submit"
-    fullWidth
-    variant="contained"
-    color="primary"
-    className={classes.marginTop}
-  >
-    {text}
-  </Button>
-)
+const Submit = ({ text }) => {
+  const classes = useStyles()
+  return (
+    <Button
+      type="submit"
+      fullWidth
+      variant="contained"
+      color="primary"
+      className={classes.marginTop}
+    >
+      {text}
+    </Button>
+  )
+}
 
-const LinkToOtherForm = ({ classes, question, button, onClick }) => (
-  <div className={classes.marginTop}>
-    <Typography align="center">
-      {question}{' '}
-      <Button variant="outlined" color="primary" onClick={onClick}>
-        {button}
-      </Button>
-    </Typography>
-  </div>
-)
+const LinkToOtherForm = ({ question, button, onClick }) => {
+  const classes = useStyles()
+  return (
+    <div className={classes.marginTop}>
+      <Typography align="center">
+        {question}{' '}
+        <Button variant="outlined" color="primary" onClick={onClick}>
+          {button}
+        </Button>
+      </Typography>
+    </div>
+  )
+}
 
-function Auth({ classes, history, match: { path } }) {
+function Auth({ history, match: { path } }) {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   if (user) {
     history.push('/')
   }
+
+  const classes = useStyles()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -201,8 +208,4 @@ function Auth({ classes, history, match: { path } }) {
   )
 }
 
-Auth.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withRouter(withStyles(styles)(Auth))
+export default withRouter(Auth)

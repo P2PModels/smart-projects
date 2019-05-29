@@ -2,12 +2,12 @@ import React from 'react'
 import NavBar from './NavBar'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 
 import { ThemeProvider } from '@material-ui/styles'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     color: 'white',
     background: 'transparent no-repeat center center',
@@ -51,7 +51,7 @@ const styles = theme => ({
     zIndex: 1,
     width: 68,
   },
-})
+}))
 
 const Footer = ({ classes }) => (
   <Toolbar className={classes.footer}>
@@ -62,16 +62,10 @@ const Footer = ({ classes }) => (
   </Toolbar>
 )
 
-function Layout({
-  title,
-  subtitle,
-  background,
-  overlay = true,
-  children,
-  classes,
-}) {
+function Layout({ title, subtitle, background, overlay = true, children }) {
   const backgroundColor = overlay && 'rgba(0,0,0,0.5)'
   background = '#1E4B4D url("' + background + '")'
+  const classes = useStyles()
   const theme = outerTheme => ({
     ...outerTheme,
     palette: {
@@ -114,4 +108,4 @@ function Layout({
   )
 }
 
-export default withStyles(styles)(Layout)
+export default Layout

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
@@ -15,7 +14,7 @@ import Avatar from './Avatar'
 import { userActions } from '../actions'
 import { useSelector, useDispatch } from 'react-redux'
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
   },
@@ -34,12 +33,13 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-}
+})
 
-function ButtonAppBar({ children, classes, history }) {
+function ButtonAppBar({ children, history }) {
   const user = useSelector(state => state.authentication.user)
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)
+  const classes = useStyles()
   const open = Boolean(anchorEl)
   return (
     <div className={classes.root}>
@@ -112,8 +112,4 @@ function ButtonAppBar({ children, classes, history }) {
   )
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withRouter(withStyles(styles)(ButtonAppBar))
+export default withRouter(ButtonAppBar)
