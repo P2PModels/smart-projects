@@ -128,7 +128,10 @@ function ProjectFormPage({ classes, history }) {
             </Button>
           </Typography>
           <Typography variant="body2" align="center">
-            🤞 Crossing fingers
+            <span role="img" aria-labelledby="good-luck">
+              🤞
+            </span>
+            <span id="good-luck">Crossing fingers</span>
           </Typography>
         </Container>
       </Layout>

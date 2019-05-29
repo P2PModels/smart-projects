@@ -3,6 +3,7 @@ import ProjectList from '../components/ProjectList'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
 import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -36,14 +37,16 @@ function Home() {
       background={`/images/${header}.jpg`}
       overlay={false}
     >
-      {user && (
-        <div>
-          <Typography variant="h3">{t('Your Projects')}</Typography>
-          <ProjectList projects={myProjects} showNewProjectTile />
-        </div>
-      )}
-      {user && <Typography variant="h3">{t('New Projects')}</Typography>}
-      <ProjectList projects={notMyProjects} />
+      <Container>
+        {user && (
+          <div>
+            <Typography variant="h3">{t('Your Projects')}</Typography>
+            <ProjectList projects={myProjects} showNewProjectTile />
+          </div>
+        )}
+        {user && <Typography variant="h3">{t('New Projects')}</Typography>}
+        <ProjectList projects={notMyProjects} />
+      </Container>
     </Layout>
   )
 }

@@ -18,7 +18,9 @@ export function configureFakeBackend() {
           // find if any user matches login credentials
           let filteredUsers = users.filter(user => {
             return (
-              user.email === params.email && user.password === params.password
+              (user.username === params.usernameOrEmail ||
+                user.email === params.usernameOrEmail) &&
+              user.password === params.password
             )
           })
 
