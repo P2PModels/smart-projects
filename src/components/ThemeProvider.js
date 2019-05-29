@@ -55,6 +55,9 @@ const theme = createMuiTheme({
       },
       outlinedPrimary: {
         borderWidth: '2px !important'
+      },
+      sizeLarge: {
+        fontSize: '1.3rem',
       }
     },
     MuiGridListTileBar: {

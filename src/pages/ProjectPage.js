@@ -9,6 +9,8 @@ import {projectActions} from '../actions'
 import Layout from '../components/Layout'
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import remark from 'remark'
+import remark2react from 'remark-react'
 
 function Profile({title}) {
   return <li>{title}</li>
@@ -46,6 +48,10 @@ function ProjectPage({ match: { params: { id } }, classes }) {
   const join = () => dispatch(projectActions.addParticipant(project, user))
   const leave = () => dispatch(projectActions.removeParticipant(project, user))
 
+  const jsx = remark().use(remark2react).processSync
+  const descriptionJSX = jsx(description).contents
+  const needsJSX = jsx(needs).contents
+
   return (
     <Layout title={name} subtitle={summary} background={imgs[0]}>
       <Container>
@@ -54,9 +60,9 @@ function ProjectPage({ match: { params: { id } }, classes }) {
           <Grid item xs>
             <Link rel="noopener" target="_blank" href={url} variant="subtitle1" gutterBottom>{url}</Link>
             <Typography variant="h3" gutterBottom>{t('About us')}</Typography>
-            <Typography variant="body1">{description}</Typography>
+            <Typography variant="body1">{descriptionJSX}</Typography>
             <Typography variant="h3" gutterBottom>{t('Our needs')}</Typography>
-            <Typography variant="body1">{needs}</Typography>
+            <Typography variant="body1">{needsJSX}</Typography>
           </Grid>
           <Grid item sm={5} md={4} container direction="column" spacing={2}>
             <Grid item>

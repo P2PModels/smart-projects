@@ -1,4 +1,4 @@
-const lorem1 = `Koríkoko es el nombre de un colectivo de creadores y artistas en todos los ámbitos que creemos en la expresión artística como vehículo fundamental de conocimiento y de crecimiento durante la infancia.
+const lorem1 = `Koríkoko es el nombre de un **colectivo de creadores y artistas** en todos los ámbitos que creemos en la expresión artística como vehículo fundamental de conocimiento y de crecimiento durante la infancia.
 
 Músicos, artistas plásticos, psicólogos y escritores conformamos este equipo de trabajo que comparte la ilusión por contribuir al desarrollo integral y feliz del individuo y que apuesta por la infancia como garantía de futuro.`
 

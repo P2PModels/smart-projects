@@ -5,6 +5,8 @@ import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 
+import { ThemeProvider } from '@material-ui/styles';
+
 const styles = theme => ({
   root: {
     color: 'white',
@@ -59,17 +61,34 @@ const Footer = ({classes}) => (
 
 function Layout({title, subtitle, background, overlay = true, children, classes}) {
   const backgroundColor = overlay && 'rgba(0,0,0,0.5)'
-  const backgroundImage = 'url("' + background + '")'
+  background = '#1E4B4D url("' + background + '")'
+  const theme = outerTheme => ({
+    ...outerTheme,
+    palette: {
+      ...outerTheme.palette,
+      type: 'dark',
+    },
+    overrides: {
+      ...outerTheme.overrides,
+      MuiOutlinedInput: {
+        input: {
+          color: 'white',
+        }
+      }
+    }
+  })
   return (
     <div>
       <NavBar />
-      <header className={classes.root} style={{backgroundImage}}>
+      <ThemeProvider theme={theme}>
+      <header className={classes.root} style={{background}}>
         <div className={classes.wrapper} style={{backgroundColor}}>
           <Typography color="inherit" variant="h1" align="center">{title}</Typography>
           <Divider variant="middle" light={true} className={classes.divider} />
           <Typography color="inherit" variant="h3" align="center" className={classes.subtitle}>{subtitle}</Typography>
         </div>
       </header>
+      </ThemeProvider>
       {children}
       <Footer classes={classes} />
     </div>

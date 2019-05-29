@@ -1,31 +1,18 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import {withRouter} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
+import { LargerTextField, SmallerTextField } from '../components/TextFields'
 
-const styles = theme => ({
-  header: {
-    color: 'white',
-    backgroundColor: 'black',
-    minHeight: '480px',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  imgBlock: {
-    float: 'right',
-    "& img": {
-      display: 'block',
-    },
-  },
-});
+const styles = {}
 
 function ProjectFormPage({ classes, history }) {
   const user = useSelector(state => state.authentication.user)
@@ -51,28 +38,38 @@ function ProjectFormPage({ classes, history }) {
   const [needs, setNeeds] = useState("")
 
   return (
-    <Layout>
-      <form onSubmit={handleNewProject}>
-        <header className={classes.header}>
-          <div>
-            <input name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Project Name" />
-            <input name="summary" value={summary} onChange={e => setSummary(e.target.value)} placeholder="What is your project about?" />
-          </div>
-        </header>
-        <div className={classes.imgBlock}>
-          <div>{t('Upload image')}</div>
-          <div>{t('Upload image')}</div>
-        </div>
-        <input name="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="URL" />
-        <h2>{t('Brief project description')}</h2>
-        <textarea onChange={e => setDescription(e.target.value)} value={description}></textarea>
-        <h2>{t('What do you need?')}</h2>
-        <textarea onChange={e => setNeeds(e.target.value)} value={needs}></textarea>
+    <form onSubmit={handleNewProject} className={classes.root}>
+      <Layout title={
+        <LargerTextField className={classes.larger} inputProps variant="outlined" name="name" value={name} onChange={e => setName(e.target.value)} placeholder="Project Name" />
+      } subtitle= {
+        <TextField variant="outlined" name="summary" value={summary} onChange={e => setSummary(e.target.value)} placeholder="What is your project about?" />
+      }>
+      <Container>
+        <Typography variant="h2">{name||'Project Name'}</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs className={classes.fields}>
+            <SmallerTextField className={classes.smaller} variant="outlined" name="url" value={url} onChange={e => setUrl(e.target.value)} placeholder="URL" />
+            <Typography variant="h4" gutterBottom>{t('Brief project description')}</Typography>
+            <TextField fullWidth variant="outlined" onChange={e => setDescription(e.target.value)} value={description} multiline rows="4" placeholder={t('Add a description')} />
+            <Typography variant="h4" gutterBottom>{t('What do you need?')}</Typography>
+            <TextField fullWidth variant="outlined" onChange={e => setNeeds(e.target.value)} value={needs} multiline rows="4" placeholder={t('Add a description')} />
+          </Grid>
+          <Grid item sm={5} md={4} container direction="column" spacing={2}>
+            <Grid item>
+            <img src="" alt={t('Project image')} />
+            </Grid>
+            <Grid item>
+            <img src="" alt={t('Project image')} />
+            </Grid>
+          </Grid>
+        </Grid>
 
         <h2>{t('What kind of profiles are you looking for')}</h2>
-        <Button onClick={handleNewProject}>Done!</Button>
-      </form>
+        <Typography align="center" paragraph><Button color="primary" variant="contained" size="large" align="center" onClick={handleNewProject}>{t('Done!')}</Button></Typography>
+        <Typography variant="body2" align="center">🤞 Crossing fingers</Typography>
+      </Container>
     </Layout>
+    </form>
   )
 }
 
