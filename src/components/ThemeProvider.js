@@ -6,10 +6,12 @@ const font = {
   letterSpacing: '-0.84px',
 }
 
+const primary = '#FF4B63'
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#FF4B63',
+      main: primary,
     },
   },
   overrides: {
@@ -19,20 +21,24 @@ const theme = createMuiTheme({
         fontSize: '60px',
         letterSpacing: '-1.7px',
         fontWeight: 'bold',
+        marginTop: '35px',
       },
       h2: {
         ...font,
         fontSize: '40px',
         fontWeight: 'bold',
+        marginTop: '35px',
       },
       h3: {
         ...font,
         fontSize: '30px',
         fontWeight: 'bold',
+        marginTop: '35px',
       },
       h4: {
         ...font,
         fontSize: '20px',
+        marginTop: '35px',
       },
       subtitle1: {
         ...font,
@@ -49,6 +55,27 @@ const theme = createMuiTheme({
       },
       outlinedPrimary: {
         borderWidth: '2px !important'
+      }
+    },
+    MuiGridListTileBar: {
+      root: {
+        alignItems: 'flex-end',
+        background: 'rgba(0,0,0,0.4)',
+      },
+      rootSubtitle: {
+        height: '100%',
+      },
+      titleWrap: {
+        marginBottom: '22px',
+      },
+      title: {
+        ...font,
+        fontSize: '40px',
+        lineHeight: '45px',
+        fontWeight: 'bold',
+      },
+      subtitle: {
+        color: primary,
       }
     }
   },

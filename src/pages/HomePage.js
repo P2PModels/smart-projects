@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ProjectList from '../components/ProjectList'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
+import Typography from '@material-ui/core/Typography'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next';
 
@@ -28,11 +29,11 @@ function Home() {
     <Layout title={title} subtitle={subtitle} background={`/images/${header}.jpg`} overlay={false}>
       {user &&
         <div>
-          <h1>{t('Your Projects')}</h1>
+          <Typography variant="h3">{t('Your Projects')}</Typography>
           <ProjectList projects={myProjects} showNewProjectTile={true} />
         </div>
       }
-      {user && <h1>{t('New Projects')}</h1>}
+      {user && <Typography variant="h3">{t('New Projects')}</Typography>}
       <ProjectList projects={notMyProjects} />
     </Layout>
   )

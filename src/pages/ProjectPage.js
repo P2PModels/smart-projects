@@ -1,33 +1,34 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux'
 import {projectActions} from '../actions'
 import Layout from '../components/Layout'
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 
 function Profile({title}) {
   return <li>{title}</li>
 }
 
 const styles = theme => ({
-  header: {
-    color: 'white',
-    backgroundColor: 'black',
-    minHeight: '480px',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  imgBlock: {
-    float: 'right',
+  root: {
     "& img": {
       display: 'block',
+      width: '100%',
     },
   },
+  callToAction: {
+    minHeight: '200px',
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 function ProjectPage({ match: { params: { id } }, classes }) {
@@ -47,26 +48,45 @@ function ProjectPage({ match: { params: { id } }, classes }) {
 
   return (
     <Layout title={name} subtitle={summary} background={imgs[0]}>
-      <div className={classes.imgBlock}>
-        <img src={imgs[1]} alt={t('Project image')} />
-        <img src={imgs[2]} alt={t('Project image')} />
+      <Container>
+        <Typography variant="h2">{name}</Typography>
+        <Grid className={classes.root} container spacing={2}>
+          <Grid item xs>
+            <Link rel="noopener" target="_blank" href={url} variant="subtitle1" gutterBottom>{url}</Link>
+            <Typography variant="h3" gutterBottom>{t('About us')}</Typography>
+            <Typography variant="body1">{description}</Typography>
+            <Typography variant="h3" gutterBottom>{t('Our needs')}</Typography>
+            <Typography variant="body1">{needs}</Typography>
+          </Grid>
+          <Grid item sm={5} md={4} container direction="column" spacing={2}>
+            <Grid item>
+            <img src={imgs[1]} alt={t('Project image')} />
+            </Grid>
+            <Grid item>
+            <img src={imgs[2]} alt={t('Project image')} />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
+      <div className={classes.callToAction}>
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Typography variant="h2" color="primary">{t('Ponte en contacto con nosotras si eres')}</Typography>
+              <ul>
+                {lookingFor.map(profile => <Profile key={profile} title={profile} />)}
+              </ul>
+            </Grid>
+            <Grid item sm={6} className={classes.center}>
+              {user ?
+                !participants.includes(user.id) ?
+                  <Button variant="contained" color="primary" size="large" onClick={join}>{t('Join')}</Button> :
+                  <Button variant="contained" color="primary" size="large" onClick={leave}>{t('Leave')}</Button>
+                : null}
+            </Grid>
+          </Grid>
+        </Container>
       </div>
-      <h1>{name}</h1>
-      <a href={url}>{url}</a>
-      <h2>{t('About us')}</h2>
-      {description}
-      <h2>{t('Our needs')}</h2>
-      {needs}
-
-      <h2>Ponte en contacto con nosotras si eres</h2>
-      <ul>
-        {lookingFor.map(profile => <Profile key={profile} title={profile} />)}
-      </ul>
-      {user ?
-        !participants.includes(user.id) ?
-          <Button variant="contained" color="primary" onClick={join}>{t('Join')}</Button> :
-          <Button variant="contained" color="primary" onClick={leave}>{t('Leave')}</Button>
-        : null}
     </Layout>
   )
 }
