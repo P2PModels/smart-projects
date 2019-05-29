@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react'
-import { withStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { fade } from '@material-ui/core/styles/colorManipulator'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { useTranslation } from 'react-i18next'
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    flexDirection: 'row-reverse'
+    flexDirection: 'row-reverse',
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -20,11 +20,11 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.common.white, 0.75),
     },
   },
-});
+})
 
 function LanguageSelector({ classes }) {
   const { i18n } = useTranslation()
-  const [ language, setLanguage ] = useState(i18n.languages[0])
+  const [language, setLanguage] = useState(i18n.languages[0])
 
   useEffect(() => {
     i18n.changeLanguage(language)
@@ -46,7 +46,7 @@ function LanguageSelector({ classes }) {
         </Select>
       </FormControl>
     </form>
-    )
+  )
 }
 
 export default withStyles(styles)(LanguageSelector)

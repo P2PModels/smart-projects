@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Container from '@material-ui/core/Container'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-//import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import LanguageSelector from './LanguageSelector'
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link } from 'react-router-dom'
 import Avatar from './Avatar'
-import {userActions} from '../actions'
+import { userActions } from '../actions'
 import { useSelector, useDispatch } from 'react-redux'
 
 const styles = {
@@ -34,7 +34,7 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+}
 
 function ButtonAppBar({ children, classes, history }) {
   const user = useSelector(state => state.authentication.user)
@@ -48,15 +48,25 @@ function ButtonAppBar({ children, classes, history }) {
           <Container className={classes.flex}>
             <div className={classes.grow}>
               <Link to="/">
-                <img style={{position:'absolute', zIndex:1}} src="/images/logo.png" alt="Logo" />
+                <img
+                  style={{ position: 'absolute', zIndex: 1 }}
+                  src="/images/logo.png"
+                  alt="Logo"
+                />
               </Link>
             </div>
             <div className={classes.flex}>
               <LanguageSelector />
 
-              { !user ?
-                <Button variant="contained" color="primary" onClick={() => history.push('/login')}>Log in</Button>
-              :
+              {!user ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => history.push('/login')}
+                >
+                  Log in
+                </Button>
+              ) : (
                 <div>
                   <IconButton
                     aria-owns={open ? 'menu-appbar' : undefined}
@@ -64,7 +74,7 @@ function ButtonAppBar({ children, classes, history }) {
                     onClick={e => setAnchorEl(e.currentTarget)}
                     color="inherit"
                   >
-                  <Avatar user={user} />
+                    <Avatar user={user} />
                   </IconButton>
                   <Menu
                     id="menu-appbar"
@@ -80,21 +90,30 @@ function ButtonAppBar({ children, classes, history }) {
                     open={open}
                     onClose={() => setAnchorEl(null)}
                   >
-                    <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
-                    <MenuItem onClick={() => {setAnchorEl(null); dispatch(userActions.logout())}}>Logout</MenuItem>
+                    <MenuItem onClick={() => setAnchorEl(null)}>
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorEl(null)
+                        dispatch(userActions.logout())
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
                   </Menu>
                 </div>
-              }
+              )}
             </div>
           </Container>
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withRouter(withStyles(styles)(ButtonAppBar));
+export default withRouter(withStyles(styles)(ButtonAppBar))

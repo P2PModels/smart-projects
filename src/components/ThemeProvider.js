@@ -1,8 +1,8 @@
-import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React from 'react'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const font = {
-  fontFamily: "Helvetica Neue",
+  fontFamily: 'Helvetica Neue',
   letterSpacing: '-0.84px',
 }
 
@@ -44,7 +44,7 @@ const theme = createMuiTheme({
         ...font,
         fontSize: '20px',
         color: '#A7A2A6',
-      }
+      },
     },
     MuiButton: {
       root: {
@@ -54,11 +54,11 @@ const theme = createMuiTheme({
         borderRadius: '24px',
       },
       outlinedPrimary: {
-        borderWidth: '2px !important'
+        borderWidth: '2px !important',
       },
       sizeLarge: {
         fontSize: '1.3rem',
-      }
+      },
     },
     MuiGridListTileBar: {
       root: {
@@ -79,16 +79,12 @@ const theme = createMuiTheme({
       },
       subtitle: {
         color: primary,
-      }
-    }
+      },
+    },
   },
   typography: { useNextVariants: true },
-});
+})
 
-export default function ThemeProvider({children}) {
-  return (
-    <MuiThemeProvider theme={theme}>
-      {children}
-    </MuiThemeProvider>
-  );
+export default function ThemeProvider({ children }) {
+  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
 }

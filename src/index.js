@@ -1,15 +1,14 @@
-import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { store } from './helpers';
-import './index.css';
-import './i18n';
-import ThemeProvider from './components/ThemeProvider';
-import App from './App';
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { store, configureFakeBackend } from './helpers'
+import './index.css'
+import './i18n'
+import ThemeProvider from './components/ThemeProvider'
+import App from './App'
 
 // setup fake backend
-import { configureFakeBackend } from './helpers';
-configureFakeBackend();
+configureFakeBackend()
 
 ReactDOM.render(
   <Suspense fallback="loading">
@@ -20,4 +19,4 @@ ReactDOM.render(
     </ThemeProvider>
   </Suspense>,
   document.getElementById('root')
-);
+)

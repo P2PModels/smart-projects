@@ -1,11 +1,11 @@
 import React from 'react'
 import NavBar from './NavBar'
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { withStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import { withStyles } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
 
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles'
 
 const styles = theme => ({
   root: {
@@ -14,14 +14,14 @@ const styles = theme => ({
     backgroundSize: 'cover',
   },
   wrapper: {
-    minHeight: "340px",
+    minHeight: '340px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: '10%',
     paddingRight: '10%',
-    [theme.breakpoints.up(1800)]:{
+    [theme.breakpoints.up(1800)]: {
       paddingLeft: '25%',
       paddingRight: '25%',
     },
@@ -39,18 +39,21 @@ const styles = theme => ({
     position: 'relative',
     minHeight: 48,
     marginTop: '30px',
-    color:'white',
-    background:'#3A3A3A'
+    color: 'white',
+    background: '#3A3A3A',
   },
   spacer: {
-    width:78
+    width: 78,
   },
   img: {
-    position:'absolute', bottom:0, zIndex:1, width:68
-  }
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 1,
+    width: 68,
+  },
 })
 
-const Footer = ({classes}) => (
+const Footer = ({ classes }) => (
   <Toolbar className={classes.footer}>
     <a href="http://smart-ib.coop/" className={classes.spacer}>
       <img className={classes.img} src="/images/logo.png" alt="Logo" />
@@ -59,7 +62,14 @@ const Footer = ({classes}) => (
   </Toolbar>
 )
 
-function Layout({title, subtitle, background, overlay = true, children, classes}) {
+function Layout({
+  title,
+  subtitle,
+  background,
+  overlay = true,
+  children,
+  classes,
+}) {
   const backgroundColor = overlay && 'rgba(0,0,0,0.5)'
   background = '#1E4B4D url("' + background + '")'
   const theme = outerTheme => ({
@@ -73,21 +83,30 @@ function Layout({title, subtitle, background, overlay = true, children, classes}
       MuiOutlinedInput: {
         input: {
           color: 'white',
-        }
-      }
-    }
+        },
+      },
+    },
   })
   return (
     <div>
       <NavBar />
       <ThemeProvider theme={theme}>
-      <header className={classes.root} style={{background}}>
-        <div className={classes.wrapper} style={{backgroundColor}}>
-          <Typography color="inherit" variant="h1" align="center">{title}</Typography>
-          <Divider variant="middle" light={true} className={classes.divider} />
-          <Typography color="inherit" variant="h3" align="center" className={classes.subtitle}>{subtitle}</Typography>
-        </div>
-      </header>
+        <header className={classes.root} style={{ background }}>
+          <div className={classes.wrapper} style={{ backgroundColor }}>
+            <Typography color="inherit" variant="h1" align="center">
+              {title}
+            </Typography>
+            <Divider variant="middle" light className={classes.divider} />
+            <Typography
+              color="inherit"
+              variant="h3"
+              align="center"
+              className={classes.subtitle}
+            >
+              {subtitle}
+            </Typography>
+          </div>
+        </header>
       </ThemeProvider>
       {children}
       <Footer classes={classes} />
@@ -95,4 +114,4 @@ function Layout({title, subtitle, background, overlay = true, children, classes}
   )
 }
 
-export default withStyles(styles)(Layout);
+export default withStyles(styles)(Layout)

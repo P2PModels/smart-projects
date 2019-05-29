@@ -10,26 +10,35 @@ Para un nuevo proyecto en XXXX centro educativo necesitamos:
 *	Un/a musicoterapeuta
 `
 
-let nextId = 0;
+let nextId = 0
 
 export function createProject(name, organizer, areas) {
   const id = nextId++
   const participants = []
-  const summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+  const summary = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
   const imgs = [
     `https://placeimg.com/640/480/any/${name}`,
     `https://placeimg.com/640/480/any/${name}-1`,
     `https://placeimg.com/640/480/any/${name}-2`,
   ]
-  const lookingFor = [
-    "Profe de música",
-    "Psicóloga/o infantil"
-  ]
+  const lookingFor = ['Profe de música', 'Psicóloga/o infantil']
   let description = lorem1
   let needs = lorem2
   let url = 'http://p2pmodels.eu'
 
-  return { name, organizer, areas, id, participants, imgs, lookingFor, summary, description, needs, url };
+  return {
+    name,
+    organizer,
+    areas,
+    id,
+    participants,
+    imgs,
+    lookingFor,
+    summary,
+    description,
+    needs,
+    url,
+  }
 }
 
 export default [

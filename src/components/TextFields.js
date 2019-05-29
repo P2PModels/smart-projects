@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
   largerInputRoot: {
@@ -16,28 +16,28 @@ const styles = {
   smallerLabelRoot: {
     fontSize: '0.7rem',
   },
-};
+}
 
-export const LargerTextField = withStyles(styles)(
-  ({...props}) =>
-  <TextField {...props}
+export const LargerTextField = withStyles(styles)(({ ...props }) => (
+  <TextField
+    {...props}
     InputProps={{ classes: { root: props.classes.largerInputRoot } }}
     InputLabelProps={{
       FormLabelClasses: {
-        root: props.classes.largerLabelRoot
-      }
+        root: props.classes.largerLabelRoot,
+      },
     }}
   />
-)
+))
 
-export const SmallerTextField = withStyles(styles)(
-  ({...props}) =>
-  <TextField {...props}
+export const SmallerTextField = withStyles(styles)(({ ...props }) => (
+  <TextField
+    {...props}
     InputProps={{ classes: { root: props.classes.smallerInputRoot } }}
     InputLabelProps={{
       FormLabelClasses: {
-        root: props.classes.smallerLabelRoot
-      }
+        root: props.classes.smallerLabelRoot,
+      },
     }}
   />
-)
+))
