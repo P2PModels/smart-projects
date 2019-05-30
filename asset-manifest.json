@@ -1,13 +1,13 @@
 {
-  "main.css": "/smart-projects/static/css/main.774d932d.chunk.css",
-  "main.js": "/smart-projects/static/js/main.6fc9b606.chunk.js",
-  "main.js.map": "/smart-projects/static/js/main.6fc9b606.chunk.js.map",
-  "runtime~main.js": "/smart-projects/static/js/runtime~main.3d5fea63.js",
-  "runtime~main.js.map": "/smart-projects/static/js/runtime~main.3d5fea63.js.map",
-  "static/js/2.991950d9.chunk.js": "/smart-projects/static/js/2.991950d9.chunk.js",
-  "static/js/2.991950d9.chunk.js.map": "/smart-projects/static/js/2.991950d9.chunk.js.map",
-  "index.html": "/smart-projects/index.html",
-  "precache-manifest.69f4a829751c1ca1719e8fd259e859d9.js": "/smart-projects/precache-manifest.69f4a829751c1ca1719e8fd259e859d9.js",
-  "service-worker.js": "/smart-projects/service-worker.js",
-  "static/css/main.774d932d.chunk.css.map": "/smart-projects/static/css/main.774d932d.chunk.css.map"
+  "main.css": "/static/css/main.774d932d.chunk.css",
+  "main.js": "/static/js/main.9db3991f.chunk.js",
+  "main.js.map": "/static/js/main.9db3991f.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+  "static/js/2.991950d9.chunk.js": "/static/js/2.991950d9.chunk.js",
+  "static/js/2.991950d9.chunk.js.map": "/static/js/2.991950d9.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.3f07f427a4478ffa5430ccecc99cf809.js": "/precache-manifest.3f07f427a4478ffa5430ccecc99cf809.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/main.774d932d.chunk.css.map": "/static/css/main.774d932d.chunk.css.map"
 }
