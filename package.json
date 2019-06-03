@@ -2,10 +2,12 @@
   "name": "smart-projects",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://projects.ipfs.technology",
   "dependencies": {
     "@material-ui/core": "^4.0.1",
     "@material-ui/icons": "^4.0.1",
     "eslint-plugin-jest": "^22.6.4",
+    "gh-pages": "^2.0.1",
     "i18next": "^15.1.0",
     "i18next-browser-languagedetector": "^3.0.1",
     "i18next-fetch-backend": "^2.2.0",
@@ -22,6 +24,8 @@
     "remark-react": "^5.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test; npm run lint",

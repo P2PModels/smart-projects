@@ -52,13 +52,14 @@ function getById(id) {
 }
 
 function register(user) {
+  user = { ...user, username: user.email }
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   }
 
-  return fetch(`${apiUrl}/users/register`, requestOptions).then(handleResponse)
+  return fetch(`${apiUrl}/users`, requestOptions).then(handleResponse)
 }
 
 function update(user) {

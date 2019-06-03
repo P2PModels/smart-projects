@@ -43,7 +43,8 @@ function ProjectPage({
   const dispatch = useDispatch()
   const { t } = useTranslation('ProjectPage')
   const classes = useStyles()
-  const project = projects ? projects[id] : {}
+  const project =
+    (projects && projects.filter(p => p.id === parseInt(id))[0]) || {}
   const {
     name,
     summary,
