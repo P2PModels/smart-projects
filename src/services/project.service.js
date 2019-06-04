@@ -1,4 +1,5 @@
 import { authHeader } from '../helpers'
+import { userService } from '.'
 
 export const projectService = {
   add,
@@ -66,7 +67,7 @@ function addParticipant(project, user) {
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ newParticipant: user.id }),
+    body: JSON.stringify({ addParticipants: [user.id] }),
   }
 
   return fetch(`${apiUrl}/projects/${project.id}`, requestOptions).then(
@@ -78,7 +79,7 @@ function removeParticipant(project, user) {
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ removeParticipant: user.id }),
+    body: JSON.stringify({ delParticipants: [user.id] }),
   }
 
   return fetch(`${apiUrl}/projects/${project.id}`, requestOptions).then(
@@ -87,13 +88,14 @@ function removeParticipant(project, user) {
 }
 
 function handleResponse(response) {
+  if (response.status === 401) {
+    // auto logout if 401 response returned from api
+    userService.logout()
+    // window.location.reload(true)
+  }
   return response.text().then(text => {
     const data = text && JSON.parse(text)
     if (!response.ok) {
-      if (response.status === 401) {
-        window.location.reload(true)
-      }
-
       const error = (data && data.message) || response.statusText
       return Promise.reject(error)
     }

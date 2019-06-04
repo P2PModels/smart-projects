@@ -4,7 +4,11 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
-
+import Snackbar from '@material-ui/core/Snackbar'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
+import { useSelector, useDispatch } from 'react-redux'
+import { alertActions } from '../actions'
+import green from '@material-ui/core/colors/green'
 import { ThemeProvider } from '@material-ui/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +66,14 @@ const Footer = ({ classes }) => (
   </Toolbar>
 )
 
-function Layout({ title, subtitle, background, overlay = true, children }) {
+function Layout({
+  title,
+  subtitle,
+  background,
+  overlay = true,
+  children,
+  ...rest
+}) {
   const backgroundColor = overlay && 'rgba(0,0,0,0.5)'
   background = '#1E4B4D url("' + background + '")'
   const classes = useStyles()
@@ -82,7 +93,7 @@ function Layout({ title, subtitle, background, overlay = true, children }) {
     },
   })
   return (
-    <div>
+    <BlankLayout {...rest}>
       <NavBar />
       <ThemeProvider theme={theme}>
         <header className={classes.root} style={{ background }}>
@@ -104,8 +115,48 @@ function Layout({ title, subtitle, background, overlay = true, children }) {
       </ThemeProvider>
       {children}
       <Footer classes={classes} />
+    </BlankLayout>
+  )
+}
+
+const useStyles2 = makeStyles(theme => ({
+  'alert-success': {
+    backgroundColor: green[600],
+  },
+  'alert-danger': {
+    backgroundColor: theme.palette.error.dark,
+  },
+  'alert-info': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}))
+
+function BlankLayout({ children, ...rest }) {
+  const { type, message } = useSelector(state => state.alert)
+  const dispatch = useDispatch()
+  const classes = useStyles2()
+
+  function handleClose(event, reason) {
+    dispatch(alertActions.clear())
+  }
+
+  return (
+    <div {...rest}>
+      {children}
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        onClose={handleClose}
+        autoHideDuration={4000}
+        open={!!message}
+      >
+        <SnackbarContent message={message} className={classes[type]} />
+      </Snackbar>
     </div>
   )
 }
 
+export { BlankLayout }
 export default Layout

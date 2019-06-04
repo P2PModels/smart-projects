@@ -19,7 +19,7 @@ function add(project) {
       project => {
         dispatch(success())
         // history.push('/login');
-        dispatch(alertActions.success('Registration successful'))
+        dispatch(alertActions.success('Your new project rocks!'))
       },
       error => {
         dispatch(failure(error.toString()))
@@ -94,7 +94,11 @@ function addParticipant(project, user) {
       _project => {
         dispatch(success(project, user))
         // history.push('/login');
-        dispatch(alertActions.success('Registration successful'))
+        dispatch(
+          alertActions.success(
+            'You will be contacted by the project organizer soon.'
+          )
+        )
       },
       error => {
         dispatch(failure(error.toString()))
@@ -122,7 +126,7 @@ function removeParticipant(project, user) {
       _project => {
         dispatch(success(project, user))
         // history.push('/login');
-        dispatch(alertActions.success('Registration successful'))
+        dispatch(alertActions.success('We hope to see you again soon.'))
       },
       error => {
         dispatch(failure(error.toString()))

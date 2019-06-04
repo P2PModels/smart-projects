@@ -2,9 +2,9 @@ import { projectConstants } from '../constants'
 
 export function project(state = {}, action) {
   switch (action.type) {
-    case projectConstants.ADD_PARTICIPANT_REQUEST:
+    case projectConstants.ADD_PARTICIPANT_SUCCESS:
       return { ...state, participants: [...state.participants, action.user.id] }
-    case projectConstants.REMOVE_PARTICIPANT_REQUEST:
+    case projectConstants.REMOVE_PARTICIPANT_SUCCESS:
       return {
         ...state,
         participants: state.participants.filter(p => p !== action.user.id),
@@ -59,21 +59,12 @@ export function projects(state = {}, action) {
     //     })
     //   };
     case projectConstants.ADD_PARTICIPANT_REQUEST:
-      return { ...state, items: state.items.map(p => project(p, action)) }
     case projectConstants.ADD_PARTICIPANT_SUCCESS:
-      return state
     case projectConstants.ADD_PARTICIPANT_FAILURE:
-      return {
-        error: action.error,
-      }
     case projectConstants.REMOVE_PARTICIPANT_REQUEST:
-      return { ...state, items: state.items.map(p => project(p, action)) }
     case projectConstants.REMOVE_PARTICIPANT_SUCCESS:
-      return state
     case projectConstants.REMOVE_PARTICIPANT_FAILURE:
-      return {
-        error: action.error,
-      }
+      return { ...state, items: state.items.map(p => project(p, action)) }
     default:
       return state
   }

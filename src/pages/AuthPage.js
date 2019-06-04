@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { userActions } from '../actions'
 import { useSelector, useDispatch } from 'react-redux'
+import { BlankLayout } from '../components/Layout'
 
 const useStyles = makeStyles(theme => ({
   background: {
@@ -171,7 +172,7 @@ function Auth({ history, match: { path } }) {
       : dispatch(userActions.register({ name, email, password }))
   }
   return (
-    <div
+    <BlankLayout
       className={classes.background}
       style={{
         backgroundImage:
@@ -204,7 +205,7 @@ function Auth({ history, match: { path } }) {
           </form>
         </Paper>
       </main>
-    </div>
+    </BlankLayout>
   )
 }
 

@@ -8,7 +8,7 @@ import ThemeProvider from './components/ThemeProvider'
 import App from './App'
 
 // setup fake backend
-process.env.REACT_APP_FAKE_BACKEND && configureFakeBackend()
+!process.env.REACT_APP_API_URL && configureFakeBackend()
 
 ReactDOM.render(
   <Suspense fallback="loading">
