@@ -10,6 +10,42 @@ import { useSelector, useDispatch } from 'react-redux'
 import { projectActions } from '../actions'
 import Layout from '../components/Layout'
 import { LargerTextField, SmallerTextField } from '../components/TextFields'
+import { save, url as ipfsUrl } from '../helpers/ipfs'
+import { makeStyles } from '@material-ui/core/styles'
+
+const UploadButton = ({ setImage }) => (
+  <Button variant="outlined" component="label">
+    Upload Image
+    <input
+      type="file"
+      onChange={e => setImage(e.target.files[0])}
+      accept="image/x-png,image/gif,image/jpeg"
+      style={{ display: 'none' }}
+    />
+  </Button>
+)
+
+const useStyles = makeStyles(theme => ({
+  box: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 200,
+    background: theme.palette.secondary.main,
+  },
+}))
+
+const DropdownZone = ({ image, setImage }) => {
+  const classes = useStyles()
+  return (
+    <div
+      className={classes.box}
+      style={{ backgroundImage: `url(${ipfsUrl(image)})` }}
+    >
+      <UploadButton setImage={setImage} />
+    </div>
+  )
+}
 
 function ProjectFormPage({ history }) {
   const user = useSelector(state => state.authentication.user)
@@ -30,6 +66,7 @@ function ProjectFormPage({ history }) {
         url,
         description,
         needs,
+        imgs: [bgImage, image1, image2],
       })
     )
     history.push('/')
@@ -41,9 +78,21 @@ function ProjectFormPage({ history }) {
   const [description, setDescription] = useState('')
   const [needs, setNeeds] = useState('')
 
+  const saveImg = setImage => file => {
+    save(file).then(hashes => setImage(`/ipfs/${hashes[0]}`))
+  }
+
+  const [bgImage, setBgImage] = useState()
+  const [image1, setImage1] = useState()
+  const [image2, setImage2] = useState()
+  const saveBgImage = saveImg(setBgImage)
+  const saveImage1 = saveImg(setImage1)
+  const saveImage2 = saveImg(setImage2)
+
   return (
     <form onSubmit={handleNewProject}>
       <Layout
+        background={ipfsUrl(bgImage)}
         title={
           <LargerTextField
             inputProps
@@ -55,13 +104,17 @@ function ProjectFormPage({ history }) {
           />
         }
         subtitle={
-          <TextField
-            variant="outlined"
-            name="summary"
-            value={summary}
-            onChange={e => setSummary(e.target.value)}
-            placeholder="What is your project about?"
-          />
+          <React.Fragment>
+            <TextField
+              variant="outlined"
+              name="summary"
+              value={summary}
+              onChange={e => setSummary(e.target.value)}
+              placeholder="What is your project about?"
+            />
+            <br />
+            <UploadButton setImage={img => saveBgImage(img)} />
+          </React.Fragment>
         }
       >
         <Container>
@@ -102,10 +155,10 @@ function ProjectFormPage({ history }) {
             </Grid>
             <Grid item sm={5} md={4} container direction="column" spacing={2}>
               <Grid item>
-                <img src="" alt={t('Project image')} />
+                <DropdownZone image={image1} setImage={saveImage1} />
               </Grid>
               <Grid item>
-                <img src="" alt={t('Project image')} />
+                <DropdownZone image={image2} setImage={saveImage2} />
               </Grid>
             </Grid>
           </Grid>

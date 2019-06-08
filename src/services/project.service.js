@@ -13,42 +13,69 @@ export const projectService = {
 
 const apiUrl = process.env.REACT_APP_API_URL
 
+/*
+ * Adapts between frontend and backend definitions of a project
+ * (if get == true) {img_bg, img1, img2} => imgs array
+ * (if get == false) imgs array => {img_bg, img1, img2}
+ * FIXME: An adapter should not be required, API should be consistent
+ */
+function adapt(project, post = false) {
+  /* eslint-disable camelcase */
+  if (!post) {
+    const { img_bg, img1, img2 } = project
+    const imgs = [img_bg, img1, img2]
+    let prj = { ...project, imgs }
+    delete prj.img_bg
+    delete prj.img1
+    delete prj.img2
+    return prj
+  } else {
+    const [img_bg, img1, img2] = project.imgs
+    let prj = { ...project, img_bg, img1, img2 }
+    delete prj.imgs
+    return prj
+  }
+  /* eslint-enable camelcase */
+}
+
 function getAll() {
   const requestOptions = {
     method: 'GET',
-    // headers: authHeader()
   }
 
-  return fetch(`${apiUrl}/projects`, requestOptions).then(handleResponse)
+  return fetch(`${apiUrl}/projects`, requestOptions)
+    .then(handleResponse)
+    .then(projects => projects.map(project => adapt(project)))
 }
 
 function getById(id) {
   const requestOptions = {
     method: 'GET',
-    // headers: authHeader()
   }
 
-  return fetch(`${apiUrl}/projects/${id}`, requestOptions).then(handleResponse)
+  return fetch(`${apiUrl}/projects/${id}`, requestOptions)
+    .then(handleResponse)
+    .then(project => adapt(project))
 }
 
 function add(project) {
   const requestOptions = {
     method: 'POST',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify(project),
+    body: JSON.stringify(adapt(project, true)),
   }
 
   return fetch(`${apiUrl}/projects`, requestOptions).then(handleResponse)
 }
 
-function update(user) {
+function update(project) {
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify(user),
+    body: JSON.stringify(adapt(project, true)),
   }
 
-  return fetch(`${apiUrl}/projects/${user.id}`, requestOptions).then(
+  return fetch(`${apiUrl}/projects/${project.id}`, requestOptions).then(
     handleResponse
   )
 }

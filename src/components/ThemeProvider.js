@@ -7,11 +7,15 @@ const font = {
 }
 
 const primary = '#FF4B63'
+const secondary = '#3E979C'
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: primary,
+    },
+    secondary: {
+      main: secondary,
     },
   },
   overrides: {
@@ -85,6 +89,36 @@ const theme = createMuiTheme({
   typography: { useNextVariants: true },
 })
 
-export default function ThemeProvider({ children }) {
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
-}
+export const darkTheme = outerTheme => ({
+  ...outerTheme,
+  palette: {
+    ...outerTheme.palette,
+    type: 'dark',
+  },
+  overrides: {
+    ...outerTheme.overrides,
+    MuiOutlinedInput: {
+      input: {
+        color: 'white',
+      },
+    },
+    MuiButton: {
+      ...outerTheme.overrides.MuiButton,
+      outlined: {
+        ...outerTheme.overrides.MuiButton.outlined,
+        color: 'white',
+      },
+    },
+  },
+})
+
+const ThemeProvider = ({ children }) => (
+  <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+)
+
+const DarkThemeProvider = ({ children }) => (
+  <MuiThemeProvider theme={darkTheme}>{children}</MuiThemeProvider>
+)
+
+export { DarkThemeProvider }
+export default ThemeProvider

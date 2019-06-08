@@ -9,7 +9,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent'
 import { useSelector, useDispatch } from 'react-redux'
 import { alertActions } from '../actions'
 import green from '@material-ui/core/colors/green'
-import { ThemeProvider } from '@material-ui/styles'
+import { DarkThemeProvider } from './ThemeProvider'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,27 +75,13 @@ function Layout({
   ...rest
 }) {
   const backgroundColor = overlay && 'rgba(0,0,0,0.5)'
-  background = '#1E4B4D url("' + background + '")'
+  background = '#3E979C url("' + background + '")'
   const classes = useStyles()
-  const theme = outerTheme => ({
-    ...outerTheme,
-    palette: {
-      ...outerTheme.palette,
-      type: 'dark',
-    },
-    overrides: {
-      ...outerTheme.overrides,
-      MuiOutlinedInput: {
-        input: {
-          color: 'white',
-        },
-      },
-    },
-  })
+
   return (
     <BlankLayout {...rest}>
       <NavBar />
-      <ThemeProvider theme={theme}>
+      <DarkThemeProvider>
         <header className={classes.root} style={{ background }}>
           <div className={classes.wrapper} style={{ backgroundColor }}>
             <Typography color="inherit" variant="h1" align="center">
@@ -112,7 +98,7 @@ function Layout({
             </Typography>
           </div>
         </header>
-      </ThemeProvider>
+      </DarkThemeProvider>
       {children}
       <Footer classes={classes} />
     </BlankLayout>

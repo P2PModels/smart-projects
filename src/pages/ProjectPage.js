@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import remark from 'remark'
 import remark2react from 'remark-react'
+import { url as ipfsUrl } from '../helpers/ipfs'
 
 function Profile({ title }) {
   return <li>{title}</li>
@@ -68,7 +69,7 @@ function ProjectPage({
   const needsJSX = jsx(needs).contents
 
   return (
-    <Layout title={name} subtitle={summary} background={imgs[0]}>
+    <Layout title={name} subtitle={summary} background={ipfsUrl(imgs[0])}>
       <Container>
         <Typography variant="h2">{name}</Typography>
         <Grid className={classes.root} container spacing={2}>
@@ -93,10 +94,10 @@ function ProjectPage({
           </Grid>
           <Grid item sm={5} md={4} container direction="column" spacing={2}>
             <Grid item>
-              <img src={imgs[1]} alt={t('Project image')} />
+              <img src={ipfsUrl(imgs[1])} alt={t('Project image')} />
             </Grid>
             <Grid item>
-              <img src={imgs[2]} alt={t('Project image')} />
+              <img src={ipfsUrl(imgs[2])} alt={t('Project image')} />
             </Grid>
           </Grid>
         </Grid>

@@ -4,6 +4,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import { withRouter } from 'react-router-dom'
+import { url as ipfsUrl } from '../helpers/ipfs'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,9 +39,9 @@ function ProjectList({ projects, showNewProjectTile, history }) {
         className={classes.gridList}
         cols={3}
       >
-        {projects.map(({ id, name, areas = [] }) => (
+        {projects.map(({ id, name, areas = [], imgs }) => (
           <GridListTile key={id} onClick={() => history.push(`/project/${id}`)}>
-            <img src={'https://placeimg.com/640/480/any/' + name} alt={name} />
+            <img src={ipfsUrl(imgs[0])} alt={name} />
             <GridListTileBar
               title={name}
               subtitle={<span>{areas.join(', ')}</span>}
