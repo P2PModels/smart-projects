@@ -1,7 +1,6 @@
 import { projectConstants } from '../constants'
 import { projectService } from '../services'
 import { alertActions } from './'
-// import { history } from '../helpers';
 
 export const projectActions = {
   add,
@@ -18,7 +17,6 @@ function add(project) {
     projectService.add(project).then(
       project => {
         dispatch(success())
-        // history.push('/login');
         dispatch(alertActions.success('Your new project rocks!'))
       },
       error => {
@@ -93,7 +91,6 @@ function addParticipant(project, user) {
     projectService.addParticipant(project, user).then(
       _project => {
         dispatch(success(project, user))
-        // history.push('/login');
         dispatch(
           alertActions.success(
             'You will be contacted by the project organizer soon.'
@@ -125,7 +122,6 @@ function removeParticipant(project, user) {
     projectService.removeParticipant(project, user).then(
       _project => {
         dispatch(success(project, user))
-        // history.push('/login');
         dispatch(alertActions.success('We hope to see you again soon.'))
       },
       error => {

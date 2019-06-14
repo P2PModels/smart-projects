@@ -15,19 +15,20 @@ const apiUrl = process.env.REACT_APP_API_URL
 
 /*
  * Adapts between frontend and backend definitions of a project
- * (if get == true) {img_bg, img1, img2} => imgs array
- * (if get == false) imgs array => {img_bg, img1, img2}
+ * server => client: {img_bg, img1, img2} => imgs array
+ * client => server: imgs array => {img_bg, img1, img2}
  * FIXME: An adapter should not be required, API should be consistent
  */
-function adapt(project, post = false) {
+function adapt(project, serverToClient = true) {
   /* eslint-disable camelcase */
-  if (!post) {
+  if (serverToClient) {
     const { img_bg, img1, img2 } = project
     const imgs = [img_bg, img1, img2]
     let prj = { ...project, imgs }
     delete prj.img_bg
     delete prj.img1
     delete prj.img2
+    if (!prj.participants) prj.participants = []
     return prj
   } else {
     const [img_bg, img1, img2] = project.imgs

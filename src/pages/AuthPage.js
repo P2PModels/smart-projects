@@ -168,8 +168,8 @@ function Auth({ history, match: { path } }) {
   const onSubmit = event => {
     event.preventDefault()
     isLogin
-      ? dispatch(userActions.login(email, password))
-      : dispatch(userActions.register({ name, email, password }))
+      ? dispatch(userActions.login(email, password, history))
+      : dispatch(userActions.register({ name, email, password }, history))
   }
   return (
     <BlankLayout

@@ -1,6 +1,5 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { history } from './helpers'
 import Home from './pages/HomePage'
 import Project from './pages/ProjectPage'
 import ProjectForm from './pages/ProjectFormPage'
@@ -9,7 +8,7 @@ import './App.css'
 
 function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Auth} />

@@ -1,7 +1,6 @@
 import { userConstants } from '../constants'
 import { userService } from '../services'
 import { alertActions } from './'
-import { history } from '../helpers'
 
 export const userActions = {
   login,
@@ -11,7 +10,7 @@ export const userActions = {
   delete: _delete,
 }
 
-function login(usernameOrEmail, password) {
+function login(usernameOrEmail, password, history) {
   return dispatch => {
     dispatch(request())
     userService.login(usernameOrEmail, password).then(
@@ -43,7 +42,7 @@ function logout() {
   return { type: userConstants.LOGOUT }
 }
 
-function register(user) {
+function register(user, history) {
   return dispatch => {
     dispatch(request(user))
 
