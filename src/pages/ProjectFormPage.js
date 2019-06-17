@@ -59,17 +59,19 @@ function ProjectFormPage({ history }) {
   const handleNewProject = event => {
     event.preventDefault()
     dispatch(
-      projectActions.add({
-        name,
-        organizer: user.id,
-        summary,
-        url,
-        description,
-        needs,
-        imgs: [bgImage, image1, image2],
-      })
+      projectActions.add(
+        {
+          name,
+          organizer: user.id,
+          summary,
+          url,
+          description,
+          needs,
+          imgs: [bgImage, image1, image2],
+        },
+        history
+      )
     )
-    history.push('/')
   }
 
   const [name, setName] = useState('')

@@ -10,13 +10,16 @@ export const projectActions = {
   removeParticipant,
 }
 
-function add(project) {
+// TODO: History should not be managed here
+function add(project, history) {
   return dispatch => {
     dispatch(request(project))
 
     projectService.add(project).then(
       project => {
         dispatch(success())
+        console.log(project)
+        history.push('/')
         dispatch(alertActions.success('Your new project rocks!'))
       },
       error => {
