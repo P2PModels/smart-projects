@@ -63,7 +63,7 @@ function add(project) {
   const requestOptions = {
     method: 'POST',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify(adapt(project, true)),
+    body: JSON.stringify(adapt(project, false)),
   }
 
   return fetch(`${apiUrl}/projects`, requestOptions).then(handleResponse)
@@ -73,7 +73,7 @@ function update(project) {
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-Type': 'application/json' },
-    body: JSON.stringify(adapt(project, true)),
+    body: JSON.stringify(adapt(project, false)),
   }
 
   return fetch(`${apiUrl}/projects/${project.id}`, requestOptions).then(
